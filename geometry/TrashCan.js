@@ -68,7 +68,6 @@ class TrashCan extends ObjectGroup {
         mat4.translate(pillars[2].coordFrame, pillars[2].coordFrame, vec3.fromValues(offset, -1*offset, height));
         mat4.translate(pillars[3].coordFrame, pillars[3].coordFrame, vec3.fromValues(-1*offset, -1*offset, height));
 
-
         this.group.push(base, top, pillars[0], pillars[1], pillars[2], pillars[3]);
     }
 }
