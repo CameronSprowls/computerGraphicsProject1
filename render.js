@@ -117,6 +117,26 @@ function main() {
                 mat4.rotateZ(camera, camera, -.1/2);
                 mat4.invert(viewMat, camera);
                 break;
+            case 'I': //up
+                mat4.invert(camera, viewMat);
+                mat4.translate(camera, camera, vec3.fromValues(0, .1/2, 0));
+                mat4.invert(viewMat, camera);
+                break;
+            case 'K': //down
+                mat4.invert(camera, viewMat);
+                mat4.translate(camera, camera, vec3.fromValues(0, -.1/2, 0));
+                mat4.invert(viewMat, camera);
+                break;
+            case 'J': //Left
+                mat4.invert(camera, viewMat);
+                mat4.translate(camera, camera, vec3.fromValues(-.1/2, 0, 0));
+                mat4.invert(viewMat, camera);
+                break;
+            case 'L': //Right
+                mat4.invert(camera, viewMat);
+                mat4.translate(camera, camera, vec3.fromValues(.1/2, 0, 0));
+                mat4.invert(viewMat, camera);
+                break;
             default:
                 break;
         }
