@@ -245,7 +245,6 @@ function createObject() {
         bottomColor: rgb
     });
     mat4.translate(shape.coordFrame, shape.coordFrame, vec3.fromValues(0, 0, 1));
-    allObjs.push(shape);
 
     // Start creating the scene
     let trashCan1 = new TrashCan(gl, {
@@ -253,10 +252,19 @@ function createObject() {
         length: .05,
         color: vec3.fromValues(14/255, 98/255, 234/255),
     });
-    mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(0, 0, 2));
-    allObjs.push(trashCan1);
+    mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(4, 4, 2));
 
-    allObjs.push(shape);
+    let creature = new Creature(gl);
+    mat4.translate(creature.coordFrame, creature.coordFrame, vec3.fromValues(5,5,5));
+
+
+    let b = new Brick(gl);
+
+    allObjs.push(b);
+    //allObjs.push(creature);
+    //allObjs.push(trashCan1);
+
+    //allObjs.push(shape);
 }
 
 function resizeWindow() {
