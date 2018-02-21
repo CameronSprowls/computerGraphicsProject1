@@ -12,9 +12,9 @@ class Torus extends Object3D {
   constructor (gl, props) {
     super(gl);
     const requiredProps = ['majorRadius', 'minorRadius'];
-    if (!this._checkProperties(props, requiredProps)) {
-      throw "Torus: missing required properties ", requiredProps;
-    }
+    // if (!this._checkProperties(props, requiredProps)) {
+    //   throw "Torus: missing required properties ", requiredProps;
+    // }
     /* if colors are undefined, generate random colors */
     if (typeof props.topColor === "undefined")
       props.topColor = vec3.fromValues(Math.random(), Math.random(), Math.random());

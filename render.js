@@ -255,16 +255,18 @@ function createObject() {
     allObjs.push(shape);**/
 
     // Red platform to build on
-    rgb = vec3.fromValues(244/255, 66/255, 66/255);
-    shape = new PolygonalPrism(gl, {
-        topRadius: 1,
-        bottomRadius: 1,
-        numSides: 4,
-        height: .1,
-        topColor: rgb,
-        bottomColor: rgb
-    });
-    mat4.translate(shape.coordFrame, shape.coordFrame, vec3.fromValues(0, 0, 1));
+    // rgb = vec3.fromValues(244/255, 66/255, 66/255);
+    // shape = new PolygonalPrism(gl, {
+    //     topRadius: 1,
+    //     bottomRadius: 1,
+    //     numSides: 4,
+    //     height: .1,
+    //     topColor: rgb,
+    //     bottomColor: rgb
+    // });
+    // mat4.translate(shape.coordFrame, shape.coordFrame, vec3.fromValues(0, 0, 1));
+
+
 
     // Start creating the scene
     let trashCan1 = new TrashCan(gl, {
@@ -272,17 +274,28 @@ function createObject() {
         length: .05,
         color: vec3.fromValues(14/255, 98/255, 234/255),
     });
-    mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(4, 4, 2));
+    mat4.rotateX(trashCan1.coordFrame, trashCan1.coordFrame, glMatrix.toRadian(30));
 
-    let creature = new Creature(gl);
-    mat4.translate(creature.coordFrame, creature.coordFrame, vec3.fromValues(5,5,5));
+    let trashCan2 = new TrashCan(gl, {
+        height: .1,
+        length: .05,
+        color: vec3.fromValues(255/255, 0/255, 0/255),
+    });
 
+    let torus = new Torus(gl, {
+        majorRadius: 2.0, minorRadius: 0.5
+    });
+    //mat4.translate(torus.coordFrame, torus.coordFrame, vec3.fromValues(1,1,1));
 
-    let b = new Brick(gl);
+    allObjs.push(torus);
 
-    allObjs.push(b);
+    //let b = new Brick(gl);
+
+    //allObjs.push(b);
     //allObjs.push(creature);
-    //allObjs.push(trashCan1);
+
+    allObjs.push(trashCan1);
+    allObjs.push(trashCan2);
 
     //allObjs.push(shape);
 }

@@ -12,7 +12,7 @@ class TrashCan extends ObjectGroup {
 
     constructor (gl, props){
         super(gl);
-
+        //this.coordFrame = mat4.create();
         const requiredProps = ["length", "height"];
         if (!this._checkProperties(props, requiredProps)) {
             throw "Trash Can is missing required properties: " + requiredProps;
@@ -69,5 +69,7 @@ class TrashCan extends ObjectGroup {
         mat4.translate(pillars[3].coordFrame, pillars[3].coordFrame, vec3.fromValues(-1*offset, -1*offset, height));
 
         this.group.push(base, top, pillars[0], pillars[1], pillars[2], pillars[3]);
+
+        //mat4.translate(this.coordFrame, this.coordFrame, vec3.fromValues(1,1,-1));
     }
 }
