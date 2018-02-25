@@ -276,28 +276,11 @@ function createObject() {
     });
     mat4.rotateX(trashCan1.coordFrame, trashCan1.coordFrame, glMatrix.toRadian(30));
 
-    let trashCan2 = new TrashCan(gl, {
-        height: .1,
-        length: .05,
-        color: vec3.fromValues(255/255, 0/255, 0/255),
-    });
+    let cT = new ClockTower(gl);
 
-    let torus = new Torus(gl, {
-        majorRadius: 2.0, minorRadius: 0.5
-    });
-    //mat4.translate(torus.coordFrame, torus.coordFrame, vec3.fromValues(1,1,1));
-
-    allObjs.push(torus);
-
-    //let b = new Brick(gl);
-
-    //allObjs.push(b);
-    //allObjs.push(creature);
-
+    allObjs.push(cT);
     allObjs.push(trashCan1);
-    allObjs.push(trashCan2);
 
-    //allObjs.push(shape);
 }
 
 function resizeWindow() {
