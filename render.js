@@ -198,98 +198,64 @@ function moveForward() {
  * Currently draws the city in a bad grid, works for now until I can move the camera
  */
 function createObject() {
-    let count = 0;
-    /**
-    for (let i = 0; i < SIZE_OF_CITY; i++) {
-        let shape;
-        let shapeType = Math.random();
-
-        // Get a random shape to add. Either a polygonal prism, sphere, or a cone
-        if (shapeType < (1/3)) {
-            shape = new PolygonalPrism(gl, {
-                topRadius: SHAPE_RADIUS,
-                bottomRadius: .1,
-                numSides: 4,
-                height: Math.random()/2
-            });
-        } else if (shapeType > (2/3)) {
-            shape = new Sphere (gl,
-                SHAPE_RADIUS,
-                5,
-                undefined);
-            // Used to move the sphere up to ground level so it's not in the ground
-            shape.coordFrame[14] += SHAPE_RADIUS;
-        } else {
-            shape = new Cone(gl, {
-                radius: SHAPE_RADIUS,
-                height: Math.random()/2,
-            });
-        }
-
-        // Weird way to set up a block, but it's the first thing I thought of, so I guess I'll leave it
-        if (i%9 === 0)
-            count = 0;
-
-        mat4.translate(shape.coordFrame, shape.coordFrame, vec3.fromValues(i/10, count/2, 0));
-        allObjs.push(shape);
-
-        count++;
-    }
-     **/
-
-    // Basic shapes to get us started with a platform and some perspective
-    // Huge floor
-
-    let rgb;
-    let shape;
-        /**
-    let rgb = vec3.fromValues(66/255, 191/255, 244/255);
-    let shape = new PolygonalPrism(gl, {
-        topRadius: 100,
-        bottomRadius: 100,
-        numSides: 4,
-        height: .1,
-        topColor: rgb,
-        bottomColor: rgb
+    // "Grass"
+    let grassColor = vec3.fromValues(51/255, 204/255, 51/255);
+    let grass = new PolygonalPrism(gl, {
+        topRadius: 3,
+        bottomRadius: 3,
+        numSides: 360,
+        height: .001,
+        topColor: grassColor,
+        bottomColor: grassColor,
     });
-    allObjs.push(shape);**/
 
-    // Red platform to build on
-    // rgb = vec3.fromValues(244/255, 66/255, 66/255);
-    // shape = new PolygonalPrism(gl, {
-    //     topRadius: 1,
-    //     bottomRadius: 1,
-    //     numSides: 4,
-    //     height: .1,
-    //     topColor: rgb,
-    //     bottomColor: rgb
-    // });
-    // mat4.translate(shape.coordFrame, shape.coordFrame, vec3.fromValues(0, 0, 1));
+    allObjs.push(grass);
 
+    // Sidewalks
+    let sideWalkColor = vec3.fromValues(255/255, 255/255, 204/255);
+    let sidewalk = new PolygonalPrism(gl, {
+        topRadius: 1,
+        bottomRadius: 1,
+        numSides: 360,
+        height: .001,
+        topColor: sideWalkColor,
+        bottomColor: sideWalkColor,
+    });
+    mat4.translate(sidewalk.coordFrame, sidewalk.coordFrame, vec3.fromValues(0, 0, .0001));
+    allObjs.push(sidewalk);
 
+    // The four surrounding shrubbery-thingies
+    let shrubbery;
+    for (let i = 0; i < 4; i++) {
+        shrubbery = new Shrubbery(gl);
+
+        mat4.rotateZ(shrubbery.coordFrame, shrubbery.coordFrame, glMatrix.toRadian(90 * i));
+        mat4.translate(shrubbery.coordFrame, shrubbery.coordFrame, mat4.fromValues(.5, 0, .0001));
+
+        allObjs.push(shrubbery);
+    }
 
     // Start creating the scene
+    let cT = new ClockTower(gl);
+
     let trashCan1 = new TrashCan(gl, {
-        height: .1,
+        height: .15,
         length: .05,
         color: vec3.fromValues(14/255, 98/255, 234/255),
     });
-    mat4.rotateX(trashCan1.coordFrame, trashCan1.coordFrame, glMatrix.toRadian(30));
+    mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(1, 1, 1));
 
-    let cT = new ClockTower(gl);
-
-    allObjs.push(cT);
-    allObjs.push(trashCan1);
+    allObjs.push(cT, trashCan1);
 
 }
 
 function resizeWindow() {
-  let w = window.innerWidth - 16;
-  let h = 0.75 * window.innerHeight;
-  canvas.width = w;
-  canvas.height = h;
-  mat4.perspective (projMat, glMatrix.toRadian(60), w/h, 0.05, 20);
-  gl.uniformMatrix4fv (projUnif, false, projMat);
-  gl.viewport(0, 0, w, h);
+    let w = window.innerWidth - 16;
+    let h = 0.75 * window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    mat4.perspective (projMat, glMatrix.toRadian(60), w/h, 0.05, 20);
+    gl.uniformMatrix4fv (projUnif, false, projMat);
+    gl.viewport(0, 0, w, h);
 }
 
