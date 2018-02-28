@@ -32,7 +32,7 @@ class TrashCan extends ObjectGroup {
             bottomRadius: length,
             numSides: 360,
             height: height,
-            topColor: color,
+            topColor: vec3.fromValues(21/255,51/255,217/255),
             bottomColor: color
         });
 
@@ -41,7 +41,7 @@ class TrashCan extends ObjectGroup {
             bottomRadius: length,
             numSides: 360,
             height: height/5,
-            topColor: color,
+            topColor: vec3.fromValues(21/255,51/255,217/255),
             bottomColor: color
         });
 

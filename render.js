@@ -77,6 +77,37 @@ function main() {
     window.addEventListener ('keydown', event => {
         let key = String.fromCharCode(event.keyCode);
         switch (key) {
+            case '1':
+                viewMat = mat4.lookAt(mat4.create(),   // Out
+                    vec3.fromValues (1.75, 2, 1.5),  // eye coord
+                    vec3.fromValues (-5, -5, 0),  // center
+                    vec3.fromValues (0, 0, 1)   // Z is up
+                );
+                mat4.invert(camera, viewMat);
+                mat4.rotateX(camera, camera, -.3);
+                mat4.invert(viewMat, camera);
+                break;
+            case '2':
+                viewMat = mat4.lookAt(mat4.create(),   // Out
+                    vec3.fromValues (2.25, 0, .2),  // eye coord
+                    vec3.fromValues (-5, -5, 0),  // center
+                    vec3.fromValues (0, 0, 1)   // Z is up
+                );
+                mat4.invert(camera, viewMat);
+                mat4.rotateY(camera, camera, glMatrix.toRadian(-45));
+                mat4.rotateX(camera, camera, glMatrix.toRadian(2));
+                mat4.invert(viewMat, camera);
+                break;
+            case '3':
+                viewMat = mat4.lookAt(mat4.create(),   // Out
+                    vec3.fromValues (-2.25, -2.25, .5),  // eye coord
+                    vec3.fromValues (-5, -5, 0),  // center
+                    vec3.fromValues (0, 0, 1)   // Z is up
+                );
+                mat4.invert(camera, viewMat);
+                mat4.rotateY(camera, camera, glMatrix.toRadian(180));
+                mat4.invert(viewMat, camera);
+                break;
             case 'W':      // Forward down Z
                 mat4.invert(camera, viewMat);
                 mat4.translate(camera, camera, vec3.fromValues(0, 0, -.1/2));
