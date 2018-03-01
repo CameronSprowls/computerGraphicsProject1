@@ -245,8 +245,8 @@ function createObject() {
     // Sidewalks
     let sideWalkColor = vec3.fromValues(255/255, 255/255, 204/255);
     let sidewalk = new PolygonalPrism(gl, {
-        topRadius: 1,
-        bottomRadius: 1,
+        topRadius: 1.5,
+        bottomRadius: 1.5,
         numSides: 360,
         height: .001,
         topColor: sideWalkColor,
@@ -269,15 +269,20 @@ function createObject() {
     // Start creating the scene
     let cT = new ClockTower(gl);
 
-    let trashCan1 = new TrashCan(gl, {
-        height: .15,
-        length: .05,
-        color: vec3.fromValues(14/255, 98/255, 234/255),
-    });
-    mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(1, 1, 1));
 
-    allObjs.push(cT, trashCan1);
+    let trashCan1;
+    for (let i = 0; i < 4; i++) {
+        trashCan1 = new TrashCan(gl, {
+            height: .15,
+            length: .05,
+            color: vec3.fromValues(14 / 255, 98 / 255, 234 / 255),
+        });
+        mat4.rotateZ(trashCan1.coordFrame, trashCan1.coordFrame, glMatrix.toRadian(i*90));
+        mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(1.4, 0, 0));
+        allObjs.push(trashCan1)
+    }
 
+    allObjs.push(cT);
 }
 
 function resizeWindow() {

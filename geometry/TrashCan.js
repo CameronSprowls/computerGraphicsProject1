@@ -54,27 +54,6 @@ class TrashCan extends ObjectGroup {
             bottomColor: vec3.fromValues(0, 0, 0),
         });
 
-        /**
-        let ring;
-
-        for (let i = 0; i < 100; i += 5) {
-            ring = new Torus(gl, {
-                majorRadius: .001,
-                minorRadius: .001,
-                majSubdiv: 50,
-                minSubdiv: 50,
-                topColor: vec3.fromValues(Math.random(), Math.random(), Math.random()),
-                bottomColor: vec3.fromValues(Math.random(), Math.random(), Math.random()),
-            });
-            mat4.rotateY(ring.coordFrame, ring.coordFrame, glMatrix.toRadian(90));
-            mat4.rotateX(ring.coordFrame, ring.coordFrame, glMatrix.toRadian(i));
-            mat4.translate(ring.coordFrame, ring.coordFrame, vec3.fromValues(0, length, 0));
-            mat4.rotateX(ring.coordFrame, ring.coordFrame, glMatrix.toRadian(60));
-
-            this.group.push(ring);
-        }
-         **/
-
         let pillars = [];
         let pillarHeight = height/8;
         for(let i = 0; i < 4; i++) {
@@ -90,7 +69,7 @@ class TrashCan extends ObjectGroup {
         }
 
         mat4.translate(top.coordFrame, top.coordFrame, vec3.fromValues(0, 0, height+pillarHeight));
-        mat4.translate(middle.coordFrame, middle.coordFrame, vec3.fromValues(0, 0, height+pillarHeight/2));
+        mat4.translate(middle.coordFrame, middle.coordFrame, vec3.fromValues(0, 0, height+pillarHeight/2 -.01));
 
         // The four pillars
         let offset = length*.65;

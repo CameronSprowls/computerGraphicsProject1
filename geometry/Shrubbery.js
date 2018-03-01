@@ -140,5 +140,97 @@ class Shrubbery extends ObjectGroup {
 
             this.group.push(partOfBase7, partOfBase8);
         }
+
+        let leaf1 = [0/255, 211/255, 31/255];
+        let leaf2 = [1/255, 153/255, 24/255];
+
+        // let's actually make the shrubbery(ies)
+        let shrub = new PolygonalPrism(gl, {
+                topRadius: .05,
+                bottomRadius: .0005,
+                numSides: 4,
+                height: .1,
+                topColor: leaf2,
+                bottomColor: leaf1
+            });
+        mat4.translate(shrub.coordFrame, shrub.coordFrame, vec3.fromValues(0, .15, 0));
+        mat4.scale(shrub.coordFrame, shrub.coordFrame, vec3.fromValues(2, 2, 1));
+
+        this.group.push(shrub);
+
+        let shrub2 = new PolygonalPrism(gl, {
+            topRadius: .05,
+            bottomRadius: .0005,
+            numSides: 4,
+            height: .1,
+            topColor: leaf2,
+            bottomColor: leaf1
+        });
+        mat4.translate(shrub2.coordFrame, shrub2.coordFrame, vec3.fromValues(0, -.15, 0));
+        mat4.scale(shrub2.coordFrame, shrub2.coordFrame, vec3.fromValues(2, 2, 1));
+
+        this.group.push(shrub2);
+
+        let shrub3 = new PolygonalPrism(gl, {
+            topRadius: .05,
+            bottomRadius: .0005,
+            numSides: 4,
+            height: .1,
+            topColor: leaf2,
+            bottomColor: leaf1
+        });
+        mat4.translate(shrub3.coordFrame, shrub3.coordFrame, vec3.fromValues(.15, 0, 0));
+        mat4.scale(shrub3.coordFrame, shrub3.coordFrame, vec3.fromValues(2, 2, 1));
+
+        this.group.push(shrub3);
+
+        let dirtColor1 = [99/255, 62/255, 0/255];
+        // let's actually make the shrubbery(ies)
+        let dirtA = new PolygonalPrism(gl, {
+            topRadius: .1,
+            bottomRadius: .1,
+            numSides: 4,
+            height: .002,
+            topColor: dirtColor1
+        });
+        mat4.translate(dirtA.coordFrame, dirtA.coordFrame, vec3.fromValues(.15, 0, 0));
+
+        let dirtB = new PolygonalPrism(gl, {
+            topRadius: .1,
+            bottomRadius: .1,
+            numSides: 4,
+            height: .002,
+            topColor: dirtColor1
+        });
+        mat4.translate(dirtB.coordFrame, dirtB.coordFrame, vec3.fromValues(0, 0.15, 0));
+
+        let dirtC = new PolygonalPrism(gl, {
+            topRadius: .1,
+            bottomRadius: .1,
+            numSides: 4,
+            height: .002,
+            topColor: dirtColor1
+        });
+        mat4.translate(dirtC.coordFrame, dirtC.coordFrame, vec3.fromValues(0, -0.15, 0));
+
+        let dirtD = new PolygonalPrism(gl, {
+            topRadius: .1,
+            bottomRadius: .1,
+            numSides: 4,
+            height: .002,
+            topColor: dirtColor1
+        });
+        mat4.translate(dirtD.coordFrame, dirtD.coordFrame, vec3.fromValues(0.08, 0.07, 0));
+
+        let dirtE = new PolygonalPrism(gl, {
+            topRadius: .1,
+            bottomRadius: .1,
+            numSides: 4,
+            height: .002,
+            topColor: dirtColor1
+        });
+        mat4.translate(dirtE.coordFrame, dirtE.coordFrame, vec3.fromValues(0.08, -0.07, 0));
+
+        this.group.push(dirtA, dirtB, dirtC, dirtD, dirtE);
     }
 }
