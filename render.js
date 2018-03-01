@@ -1,7 +1,7 @@
 /**
  * Created by Hans Dulimarta.
  *
- * Edited by Cameron Sprowls
+ * Edited by Cameron Sprowls and Dustin Thurston
  */
 let canvas;
 let gl;
@@ -10,15 +10,12 @@ let allObjs = [];
 let projUnif;
 let projMat, viewMat;
 
-
-/* Global variables for consistency through the shapes */
-const SIZE_OF_CITY = 100;
-const SHAPE_RADIUS = .1;
-
 /* Program essentials */
 let autoMove = true;
 let time = Date.now();
 let camera = mat4.create();
+let currObj = 0;
+let cT;
 
 function main() {
     canvas = document.getElementById("my-canvas");
@@ -110,64 +107,113 @@ function main() {
                 mat4.invert(viewMat, camera);
                 break;
             case 'W':      // Forward down Z
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(0, 0, -.1/2));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(-.1/2, -.1/2,0));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(0, 0, -.1 / 2));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'S':      // Backward
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(0, 0, .1/2));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(.1/2, .1/2,0));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(0, 0, .1 / 2));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'Q':      // Angle Up
-                mat4.invert(camera, viewMat);
-                mat4.rotateX(camera, camera, .1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateX(cT.coordFrame, cT.coordFrame, .1/2);
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateX(camera, camera, .1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'E':      // Angle Down
-                mat4.invert(camera, viewMat);
-                mat4.rotateX(camera, camera, -.1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateX(cT.coordFrame, cT.coordFrame, -.1/2);
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateX(camera, camera, -.1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'A':      // Roll Left
-                mat4.invert(camera, viewMat);
-                mat4.rotateY(camera, camera, .1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateZ(cT.coordFrame, cT.coordFrame, .1/2);
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateY(camera, camera, .1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'D':     // Roll Right
-                mat4.invert(camera, viewMat);
-                mat4.rotateY(camera, camera, -.1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateZ(cT.coordFrame, cT.coordFrame,-.1/2);
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateY(camera, camera, -.1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'Z':      // Turn Left
-                mat4.invert(camera, viewMat);
-                mat4.rotateZ(camera, camera, .1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateY(cT.coordFrame, cT.coordFrame, .1/2);
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateZ(camera, camera, .1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'C':     // Turn Right
-                mat4.invert(camera, viewMat);
-                mat4.rotateZ(camera, camera, -.1/2);
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.rotateY(cT.coordFrame, cT.coordFrame, -.1/2);
+                }else {
+
+                    mat4.invert(camera, viewMat);
+                    mat4.rotateZ(camera, camera, -.1 / 2);
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'I': //up
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(0, .1/2, 0));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(0,0,.1/2));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(0, .1 / 2, 0));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'K': //down
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(0, -.1/2, 0));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(0,0, -.1/2));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(0, -.1 / 2, 0));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'J': //Left
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(-.1/2, 0, 0));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(.1/2, -.1/2,0));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(-.1 / 2, 0, 0));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             case 'L': //Right
-                mat4.invert(camera, viewMat);
-                mat4.translate(camera, camera, vec3.fromValues(.1/2, 0, 0));
-                mat4.invert(viewMat, camera);
+                if(currObj !== 0){
+                    mat4.translate(cT.coordFrame, cT.coordFrame, vec3.fromValues(-.1/2, .1/2,0));
+                }else {
+                    mat4.invert(camera, viewMat);
+                    mat4.translate(camera, camera, vec3.fromValues(.1 / 2, 0, 0));
+                    mat4.invert(viewMat, camera);
+                }
                 break;
             default:
                 break;
@@ -178,15 +224,16 @@ function main() {
     });
 
     // Listener for the drop down menu for the auto-move feature
-    const movementMode = document.getElementById("Auto Move");
-    movementMode.addEventListener('click', event => {
+    const movementMode = document.getElementById("Object Select");
+    movementMode.addEventListener('change', event => {
         switch (movementMode.selectedIndex) {
             case 0:
-                autoMove = true;
-                moveForward();
+                //the camera
+                currObj = 0;
                 break;
             case 1:
-                autoMove = false;
+                //the clock tower
+                currObj = 1;
                 break;
             default:
                 break;
@@ -278,7 +325,7 @@ function createObject() {
     }
 
     // Start creating the scene
-    let cT = new ClockTower(gl);
+    cT = new ClockTower(gl);
 
 
     let trashCan1;
