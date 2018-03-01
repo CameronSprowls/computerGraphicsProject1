@@ -202,7 +202,6 @@ function drawScene() {
     allObjs[0].draw(gl);
     gl.cullFace(gl.BACK);
     for (let k = 1; k < allObjs.length; k++) {
-
         allObjs[k].draw(gl);
     }
 }
@@ -294,12 +293,8 @@ function createObject() {
         allObjs.push(trashCan1)
     }
 
-    // TODO: testing of the clock, remoce later
-    let clock = new Clock(gl);
-    mat4.translate(clock.coordFrame, clock.coordFrame, vec3.fromValues(.6, .6, 1.4));
-
-    allObjs.push(cT, clock);
-    window.requestAnimFrame(clockMovement(clock));
+    allObjs.push(cT);
+    window.requestAnimFrame(clockMovement(cT));
 }
 
 function resizeWindow() {
@@ -313,7 +308,7 @@ function resizeWindow() {
 }
 
 function clockMovement(clock){
-    clock.clockMove();
+    clock.move();
 
     gl.uniformMatrix4fv (viewUnif, false, viewMat);
     window.requestAnimationFrame(drawScene);

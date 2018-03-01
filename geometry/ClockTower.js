@@ -266,5 +266,33 @@ class ClockTower extends ObjectGroup {
         this.group.push(top);
         this.group.push(clockPart);
         this.group.push(hat);
+
+        //Add Clocks
+        this.c1 = new Clock(gl);
+        mat4.translate(this.c1.coordFrame,this.c1.coordFrame,vec3.fromValues(0.11,0.11,1.2));
+        mat4.rotateZ(this.c1.coordFrame,this.c1.coordFrame,glMatrix.toRadian(45));
+        this.group.push(this.c1);
+
+        this.c2 = new Clock(gl);
+        mat4.translate(this.c2.coordFrame,this.c2.coordFrame,vec3.fromValues(-0.11,-0.11,1.2));
+        mat4.rotateZ(this.c2.coordFrame,this.c2.coordFrame,glMatrix.toRadian(225));
+        this.group.push(this.c2);
+
+        this.c3 = new Clock(gl);
+        mat4.translate(this.c3.coordFrame,this.c3.coordFrame,vec3.fromValues(-0.11,0.11,1.2));
+        mat4.rotateZ(this.c3.coordFrame,this.c3.coordFrame,glMatrix.toRadian(135));
+        this.group.push(this.c3);
+
+        this.c4 = new Clock(gl);
+        mat4.translate(this.c4.coordFrame,this.c4.coordFrame,vec3.fromValues(0.11,-0.11,1.2));
+        mat4.rotateZ(this.c4.coordFrame,this.c4.coordFrame,glMatrix.toRadian(-45));
+        this.group.push(this.c4);
+    }
+
+    move(){
+        this.c1.clockMove();
+        this.c2.clockMove();
+        this.c3.clockMove();
+        this.c4.clockMove();
     }
 }

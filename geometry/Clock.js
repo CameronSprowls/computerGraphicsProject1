@@ -2,6 +2,10 @@ class Clock extends ObjectGroup {
     constructor(gl) {
         super(gl);
 
+        //12,3,6,9 ticks on clock
+        
+
+
         this.secondHandRotation = glMatrix.toRadian(-6);
         this.minHandRotation = glMatrix.toRadian(-1/15);
         this.hourHandRotation = glMatrix.toRadian(-1/360);
@@ -15,7 +19,7 @@ class Clock extends ObjectGroup {
             topRadius: .001,
             bottomRadius: .001,
             numSides: 360,
-            height: .11,
+            height: .095,
             topColor: handColor1,
             bottomColor: handColor2
         });
@@ -26,7 +30,7 @@ class Clock extends ObjectGroup {
             topRadius: .002,
             bottomRadius: .001,
             numSides: 360,
-            height: .1,
+            height: .09,
             topColor: handColor1,
             bottomColor: handColor2
         });
@@ -34,7 +38,7 @@ class Clock extends ObjectGroup {
         mat4.rotateX(this.minHand.coordFrame, this.minHand.coordFrame, glMatrix.toRadian(-1 * time.getMinutes() * 6));
 
         this.hourHand = new PolygonalPrism(gl, {
-            topRadius: .005,
+            topRadius: .003,
             bottomRadius: .001,
             numSides: 360,
             height: .06,
