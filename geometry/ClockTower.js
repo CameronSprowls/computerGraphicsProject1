@@ -217,7 +217,7 @@ class ClockTower extends ObjectGroup {
         let cyl1 = new PolygonalPrism(gl, {
             topRadius: .14,
             bottomRadius: .14,
-            numSides: 20,
+            numSides: 360,
             height: .277,
             topColor: vec3.fromValues(81/255,118/255,118/255),
             bottomColor: vec3.fromValues(69/255,99/255,97/255)
@@ -226,7 +226,7 @@ class ClockTower extends ObjectGroup {
         let cyl2 = new PolygonalPrism(gl, {
             topRadius: .14,
             bottomRadius: .14,
-            numSides: 20,
+            numSides: 360,
             height: .277,
             topColor: vec3.fromValues(81/255,118/255,118/255),
             bottomColor: vec3.fromValues(69/255,99/255,97/255)

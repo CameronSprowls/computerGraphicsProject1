@@ -101,7 +101,7 @@ function main() {
                 break;
             case '3':
                 viewMat = mat4.lookAt(mat4.create(),   // Out
-                    vec3.fromValues (-2.25, -2.25, .15),  // eye coord
+                    vec3.fromValues (-1.75, -1.75, .15),  // eye coord
                     vec3.fromValues (-5, -5, 0),  // center
                     vec3.fromValues (0, 0, 1)   // Z is up
                 );
