@@ -51,7 +51,7 @@ class Clock extends ObjectGroup {
 
 
         this.secondHandRotation = glMatrix.toRadian(-6);
-        this.minHandRotation = glMatrix.toRadian(-1/15);
+        this.minHandRotation = glMatrix.toRadian(-1/60);
         this.hourHandRotation = glMatrix.toRadian(-1/360);
 
         let time = new Date();
@@ -90,8 +90,11 @@ class Clock extends ObjectGroup {
             bottomColor: handColor2
         });
 
-        mat4.rotateX(this.hourHand.coordFrame, this.hourHand.coordFrame, glMatrix.toRadian(-1 * time.getHours() * 30));
-        this.group.push(this.secondHand, this.minHand, this.hourHand);
+        mat4.rotateX(this.hourHand.coordFrame, this.hourHand.coordFrame, glMatrix.toRadian((-1 * time.getHours() * 30) - time.getMinutes()/2));
+
+        let centerSphere = new Sphere(gl, 0.005, 5, vec3.fromValues(0, 0, 0));
+
+        this.group.push(this.secondHand, this.minHand, this.hourHand, centerSphere);
     }
 
     clockMove(){

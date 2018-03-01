@@ -281,16 +281,16 @@ function createObject() {
     let cT = new ClockTower(gl);
 
 
-    let trashCan1;
+    let trashCan;
     for (let i = 0; i < 4; i++) {
-        trashCan1 = new TrashCan(gl, {
+        trashCan = new TrashCan(gl, {
             height: .15,
             length: .05,
             color: vec3.fromValues(14 / 255, 98 / 255, 234 / 255),
         });
-        mat4.rotateZ(trashCan1.coordFrame, trashCan1.coordFrame, glMatrix.toRadian(i*90));
-        mat4.translate(trashCan1.coordFrame, trashCan1.coordFrame, vec3.fromValues(1.4, 0, 0));
-        allObjs.push(trashCan1)
+        mat4.rotateZ(trashCan.coordFrame, trashCan.coordFrame, glMatrix.toRadian(i*90));
+        mat4.translate(trashCan.coordFrame, trashCan.coordFrame, vec3.fromValues(1.4, 0, 0));
+        allObjs.push(trashCan)
     }
 
     allObjs.push(cT);
