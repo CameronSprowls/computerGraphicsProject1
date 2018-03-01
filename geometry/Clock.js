@@ -3,7 +3,51 @@ class Clock extends ObjectGroup {
         super(gl);
 
         //12,3,6,9 ticks on clock
-        
+        let twelve = new PolygonalPrism(gl, {
+            topRadius: .001,
+            bottomRadius: .001,
+            numSides: 4,
+            height: 0.04,
+            topColor: vec3.fromValues(0,0,0),
+            bottomColor: vec3.fromValues(0,0,0)
+        });
+        mat4.translate(twelve.coordFrame,twelve.coordFrame,vec3.fromValues(-0.01,0,0.055));
+        this.group.push(twelve);
+
+        let three = new PolygonalPrism(gl, {
+            topRadius: .001,
+            bottomRadius: .001,
+            numSides: 4,
+            height: 0.04,
+            topColor: vec3.fromValues(0,0,0),
+            bottomColor: vec3.fromValues(0,0,0)
+        });
+        mat4.rotateX(three.coordFrame,three.coordFrame,glMatrix.toRadian(90));
+        mat4.translate(three.coordFrame,three.coordFrame,vec3.fromValues(-.01,0,-0.095));
+        this.group.push(three);
+
+        let six = new PolygonalPrism(gl, {
+            topRadius: .001,
+            bottomRadius: .001,
+            numSides: 4,
+            height: 0.04,
+            topColor: vec3.fromValues(0,0,0),
+            bottomColor: vec3.fromValues(0,0,0)
+        });
+        mat4.translate(six.coordFrame,six.coordFrame,vec3.fromValues(-.01,0,-.095));
+        this.group.push(six);
+
+        let nine = new PolygonalPrism(gl, {
+            topRadius: .001,
+            bottomRadius: .001,
+            numSides: 4,
+            height: 0.04,
+            topColor: vec3.fromValues(0,0,0),
+            bottomColor: vec3.fromValues(0,0,0)
+        });
+        mat4.rotateX(nine.coordFrame,nine.coordFrame,glMatrix.toRadian(90));
+        mat4.translate(nine.coordFrame,nine.coordFrame, vec3.fromValues(-0.01,0,0.055));
+        this.group.push(nine);
 
 
         this.secondHandRotation = glMatrix.toRadian(-6);
