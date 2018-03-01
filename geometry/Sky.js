@@ -3,7 +3,7 @@
  *
  * Modified by Dustin Thurston 2/14/18
  */
-class Sphere extends Object3D {
+class Sky extends Object3D {
     /**
      * Create a 3D sphere with tip at the Z+ axis and base on the XY plane
      * @param {Object} gl      the current WebGL context

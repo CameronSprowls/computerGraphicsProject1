@@ -35,7 +35,7 @@ function main() {
             gl.clearColor (0, 0, 0, 1);
             gl.enable(gl.CULL_FACE);
             gl.enable(gl.DEPTH_TEST);
-            gl.cullFace(gl.BACK);
+            gl.cullFace(gl.FRONT_AND_BACK);
 
             /* the vertex shader defines TWO attribute vars and ONE uniform var */
             let posAttr = gl.getAttribLocation (prog, "vertexPos");
@@ -66,6 +66,7 @@ function main() {
 
             /* recalculate new viewport */
             resizeWindow();
+            createSky(gl);
             createObject();
 
             /* initiate the render request */
@@ -100,7 +101,7 @@ function main() {
                 break;
             case '3':
                 viewMat = mat4.lookAt(mat4.create(),   // Out
-                    vec3.fromValues (-2.25, -2.25, .5),  // eye coord
+                    vec3.fromValues (-2.25, -2.25, .15),  // eye coord
                     vec3.fromValues (-5, -5, 0),  // center
                     vec3.fromValues (0, 0, 1)   // Z is up
                 );
@@ -197,7 +198,11 @@ function drawScene() {
     // Clear the screen
     gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
-    for (let k = 0; k < allObjs.length; k++) {
+    gl.cullFace(gl.FRONT);
+    allObjs[0].draw(gl);
+    gl.cullFace(gl.BACK);
+    for (let k = 1; k < allObjs.length; k++) {
+
         allObjs[k].draw(gl);
     }
 }
@@ -223,12 +228,19 @@ function moveForward() {
     }
 }
 
+function createSky(gl){
+    //Skye
+    let sky = new Sky(gl, 5.0, 5, vec3.fromValues(99/255,159/255,255/255));
+    allObjs.push(sky);
+}
+
 /***
  * Creates all of the "buildings" for the city, pushed them back to the array to be drawn
  *
  * Currently draws the city in a bad grid, works for now until I can move the camera
  */
 function createObject() {
+
     // "Grass"
     let grassColor = vec3.fromValues(51/255, 204/255, 51/255);
     let grass = new PolygonalPrism(gl, {

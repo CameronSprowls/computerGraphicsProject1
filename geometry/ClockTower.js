@@ -266,7 +266,5 @@ class ClockTower extends ObjectGroup {
         this.group.push(top);
         this.group.push(clockPart);
         this.group.push(hat);
-
-
     }
 }
